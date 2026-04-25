@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nacer Ben Driouich — Data & BI Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0f1f3d;
+      --navy-light: #1b2f5a;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --cream: #f5f0e8;
+      --white: #ffffff;
+      --gray: #8a8f9e;
+      --dark-gray: #2d3142;
+      --card-bg: #ffffff;
+      --border: #e2ddd4;
+      --tag-bg: #eef1f7;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15, 31, 61, 0.97);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      font-size: 18px; letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none; font-size: 13px;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 120px 80px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 55%; height: 100%;
+      background: radial-gradient(ellipse at 70% 40%, rgba(201,168,76,0.08) 0%, transparent 65%),
+                  radial-gradient(ellipse at 90% 80%, rgba(27,47,90,0.9) 0%, transparent 60%);
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 1.05; color: var(--white);
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero-name span { color: var(--gold); }
+    .hero-title {
+      font-size: 18px; font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 40px; max-width: 520px; line-height: 1.6;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border-radius: 2px;
+      font-size: 13px; font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.8);
+      padding: 14px 32px; border-radius: 2px;
+      font-size: 13px; letter-spacing: 1px;
+      text-transform: uppercase; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 80px;
+      animation: fadeUp 0.8s 0.4s ease both;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 40px; width: 100%; max-width: 600px;
+    }
+    .stat-item { }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; color: var(--gold);
+    }
+    .stat-label {
+      font-size: 12px; color: rgba(255,255,255,0.5);
+      letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;
+    }
+
+    .scroll-indicator {
+      position: absolute; bottom: 40px; left: 80px;
+      display: flex; align-items: center; gap: 12px;
+      color: rgba(255,255,255,0.3); font-size: 11px;
+      letter-spacing: 2px; text-transform: uppercase;
+      animation: fadeUp 0.8s 0.6s ease both;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: rgba(255,255,255,0.2);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--gold);
+      animation: slideLine 2s ease infinite;
+    }
+    @keyframes slideLine { to { left: 100%; } }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 80px; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--navy); margin-bottom: 16px; line-height: 1.2;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--gray);
+      max-width: 540px; line-height: 1.7; margin-bottom: 64px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-text p {
+      font-size: 16px; line-height: 1.8;
+      color: var(--dark-gray); margin-bottom: 20px;
+    }
+    .about-text strong { color: var(--navy); font-weight: 500; }
+    .about-skills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+    .skill-tag {
+      background: var(--tag-bg); color: var(--navy);
+      padding: 6px 14px; border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; letter-spacing: 0.5px;
+      border: 1px solid var(--border);
+    }
+    .about-highlights { display: flex; flex-direction: column; gap: 24px; }
+    .highlight-card {
+      background: var(--cream); padding: 28px 32px;
+      border-left: 3px solid var(--gold);
+    }
+    .highlight-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px; color: var(--gold); line-height: 1;
+    }
+    .highlight-text {
+      font-size: 14px; color: var(--gray);
+      margin-top: 6px; line-height: 1.5;
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: var(--cream); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(15,31,61,0.12);
+    }
+    .card-header {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .card-icon {
+      font-size: 48px; opacity: 0.9;
+      position: relative; z-index: 1;
+    }
+    .card-body { padding: 28px; }
+    .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .card-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .tag-bi { background: #e8f0fe; color: #1a4db5; }
+    .tag-sql { background: #fce8e6; color: #c5221f; }
+    .tag-python { background: #e6f4ea; color: #1e7e34; }
+    .tag-api { background: #fef7e0; color: #a07000; }
+    .tag-auto { background: #f3e8fd; color: #6a1b9a; }
+    .tag-analytics { background: #e0f7fa; color: #006064; }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; color: var(--navy);
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .card-desc {
+      font-size: 14px; color: var(--gray);
+      line-height: 1.65; margin-bottom: 20px;
+    }
+    .card-footer {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 16px 28px;
+      border-top: 1px solid var(--border);
+    }
+    .card-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--gray); letter-spacing: 1px;
+    }
+    .card-link {
+      font-size: 12px; color: var(--gold);
+      text-decoration: none; font-weight: 500;
+      letter-spacing: 0.5px;
+      display: flex; align-items: center; gap: 6px;
+      transition: gap 0.2s;
+    }
+    .card-link:hover { gap: 10px; }
+
+    /* Project color bands */
+    .band-blue { background: linear-gradient(135deg, #0f1f3d 0%, #1b3a6b 100%); }
+    .band-gold { background: linear-gradient(135deg, #7a5c1e 0%, #c9a84c 100%); }
+    .band-teal { background: linear-gradient(135deg, #0d4f4f 0%, #1a8080 100%); }
+    .band-purple { background: linear-gradient(135deg, #2d1b69 0%, #5a3d9e 100%); }
+    .band-red { background: linear-gradient(135deg, #6b1a1a 0%, #b83232 100%); }
+    .band-green { background: linear-gradient(135deg, #1a4a2a 0%, #2d8a4e 100%); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed;
+      inset: 0; z-index: 1000;
+      background: rgba(10, 18, 35, 0.85);
+      backdrop-filter: blur(8px);
+      justify-content: center; align-items: flex-start;
+      padding: 40px 20px; overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      max-width: 800px; width: 100%;
+      margin: auto; position: relative;
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal-header {
+      padding: 48px 48px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 36px; height: 36px;
+      border: 1px solid var(--border); background: none;
+      cursor: pointer; font-size: 18px; color: var(--gray);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .modal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; color: var(--navy); line-height: 1.2; margin-bottom: 12px;
+    }
+    .modal-subtitle { font-size: 15px; color: var(--gray); line-height: 1.6; }
+    .modal-body { padding: 40px 48px; }
+    .modal-section { margin-bottom: 36px; }
+    .modal-section-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+    .modal-section p {
+      font-size: 15px; color: var(--dark-gray);
+      line-height: 1.75; margin-bottom: 12px;
+    }
+    .modal-section ul {
+      padding-left: 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .modal-section ul li {
+      font-size: 15px; color: var(--dark-gray); line-height: 1.65;
+    }
+    .modal-section ul li strong { color: var(--navy); font-weight: 500; }
+    .impact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-top: 8px;
+    }
+    .impact-item {
+      background: var(--cream);
+      padding: 20px; border-left: 3px solid var(--gold);
+    }
+    .impact-item strong {
+      display: block; font-size: 13px;
+      color: var(--navy); margin-bottom: 4px;
+    }
+    .impact-item span { font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .code-block {
+      background: #0f1f3d; color: #e0e8f8;
+      padding: 24px; overflow-x: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; line-height: 1.7;
+      margin-top: 8px;
+    }
+    .modal-cta {
+      display: flex; gap: 12px;
+      padding: 28px 48px;
+      border-top: 1px solid var(--border);
+      background: var(--cream);
+    }
+    .btn-modal-primary {
+      background: var(--navy); color: var(--white);
+      padding: 12px 28px; text-decoration: none;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .btn-modal-primary:hover { background: var(--navy-light); }
+    .btn-modal-secondary {
+      border: 1px solid var(--border); color: var(--navy);
+      padding: 12px 28px; text-decoration: none;
+      font-size: 13px; letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .btn-modal-secondary:hover { background: var(--cream); }
+    .confidential-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff3cd; color: #856404;
+      padding: 6px 12px; font-size: 12px;
+      border: 1px solid #ffc107; margin-bottom: 16px;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--white); }
+    .timeline { max-width: 720px; }
+    .timeline-item {
+      display: flex; gap: 32px; margin-bottom: 48px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: 16px; top: 36px;
+      bottom: -48px; width: 1px;
+      background: var(--border);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot {
+      width: 33px; height: 33px; flex-shrink: 0;
+      border: 2px solid var(--gold);
+      background: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+      font-size: 14px;
+    }
+    .timeline-content {}
+    .timeline-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--gold);
+      letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .timeline-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; color: var(--navy); margin-bottom: 4px;
+    }
+    .timeline-org {
+      font-size: 13px; color: var(--gray); margin-bottom: 12px;
+    }
+    .timeline-points { padding-left: 16px; }
+    .timeline-points li {
+      font-size: 14px; color: var(--dark-gray);
+      line-height: 1.65; margin-bottom: 6px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--navy);
+      text-align: center; padding: 100px 80px;
+    }
+    #contact .section-title { color: var(--white); }
+    #contact .section-sub { color: rgba(255,255,255,0.5); margin: 0 auto 48px; }
+    .contact-links {
+      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.7); text-decoration: none;
+      font-size: 14px; padding: 14px 28px;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.2s;
+    }
+    .contact-link:hover {
+      background: rgba(201,168,76,0.1);
+      border-color: var(--gold); color: var(--gold);
+    }
+    footer {
+      background: #070f1f; text-align: center;
+      padding: 24px; font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      font-family: 'DM Mono', monospace; letter-spacing: 1px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .modal-header, .modal-body, .modal-cta { padding: 24px; }
+      .hero-stats { gap: 24px; }
+      #contact { padding: 70px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">NBD</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Data & Business Intelligence</div>
+  <h1 class="hero-name">Nacer<br><span>Ben Driouich</span></h1>
+  <p class="hero-title">Manager, Business Intelligence — building analytics systems, leading BI teams, and turning complex data into decisions that matter.</p>
+  <div class="hero-cta">
+    <a href="#portfolio" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-number">4+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">170</div>
+      <div class="stat-label">Countries Covered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">6K+</div>
+      <div class="stat-label">Audits Supported</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Direct Reports</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title">From intern to<br>BI Manager in 4 years.</h2>
+      <p>I started at WRAP as a business development intern with a degree in international politics and no technical background. Four years later I lead a team of BI professionals, own the analytics roadmap for a global compliance organization operating across 170 countries, and build the data systems that inform decisions at the board level.</p>
+      <p>I taught myself Python, SQL, Power BI, Azure, and REST API development because every problem I encountered required it. That same instinct — finding the gap and closing it — is what drives how I lead and build.</p>
+      <p><strong>I specialize in</strong> translating messy operational data into clean, actionable intelligence, and in building the infrastructure that makes that possible at scale.</p>
+      <div class="about-skills">
+        <span class="skill-tag">Power BI & DAX</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Azure</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">Flask / Django</span>
+        <span class="skill-tag">Data Modeling</span>
+        <span class="skill-tag">Power Automate</span>
+        <span class="skill-tag">ETL Pipelines</span>
+        <span class="skill-tag">Team Leadership</span>
+      </div>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-card">
+        <div class="highlight-num">4,000+</div>
+        <div class="highlight-text">Facility records reconciled across platforms via automated API integration</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-num">45min → 1min</div>
+        <div class="highlight-text">Certificate generation time reduced through full Python automation pipeline</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-num">9</div>
+        <div class="highlight-text">Board-level executives served with real-time compliance visibility dashboards</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">A mix of public analytics projects and case studies from professional work. Production work is described without proprietary data.</p>
+
+  <div class="projects-grid">
+
+    <!-- Project 1: Supply Chain & Sales -->
+    <div class="project-card" onclick="openModal('modal-bikeshop')">
+      <div class="card-header band-blue">
+        <span class="card-icon">📊</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-bi">Power BI</span>
+          <span class="card-tag tag-sql">SQL</span>
+          <span class="card-tag tag-analytics">DAX</span>
+        </div>
+        <h3 class="card-title">Supply Chain & Sales Analysis</h3>
+        <p class="card-desc">End-to-end BI solution for a retail business — SQL data extraction, star schema modeling, and an interactive Power BI dashboard tracking revenue, customer segments, and geographic performance.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">2023</span>
+        <span class="card-link">View Project →</span>
+      </div>
+    </div>
+
+    <!-- Project 2: Marketing Campaign -->
+    <div class="project-card" onclick="openModal('modal-marketing')">
+      <div class="card-header band-gold">
+        <span class="card-icon">📈</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-bi">Power BI</span>
+          <span class="card-tag tag-analytics">ETL</span>
+        </div>
+        <h3 class="card-title">Marketing Campaign Analysis</h3>
+        <p class="card-desc">Multi-platform campaign performance analysis across Facebook, Pinterest, and Instagram for a DC-area clothing brand. Tracked CTR, conversions, and ROAS across three cities and three seasonal campaigns.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">2024</span>
+        <span class="card-link">View Project →</span>
+      </div>
+    </div>
+
+    <!-- Project 3: Olympic Games -->
+    <div class="project-card" onclick="openModal('modal-olympic')">
+      <div class="card-header band-teal">
+        <span class="card-icon">🏅</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-bi">Power BI</span>
+          <span class="card-tag tag-sql">SQL</span>
+        </div>
+        <h3 class="card-title">Olympic Games Historical Analysis</h3>
+        <p class="card-desc">Historical performance visualization across Summer Olympic Games — filterable by country, athlete, sport, and medal type. Built for a media outlet use case with full SQL data cleansing pipeline.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">2023</span>
+        <span class="card-link">View Project →</span>
+      </div>
+    </div>
+
+    <!-- Project 4: Amazon Supplier Matching -->
+    <div class="project-card" onclick="openModal('modal-amazon')">
+      <div class="card-header band-purple">
+        <span class="card-icon">🔗</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-sql">SQL</span>
+          <span class="card-tag tag-api">Fuzzy Match</span>
+        </div>
+        <h3 class="card-title">Supplier List Matching Tool</h3>
+        <p class="card-desc">Python tool to reconcile Amazon's public supplier list against an internal SQL database using fuzzy string matching. Handles casing inconsistencies, spelling variations, and address formatting differences at scale.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">2025</span>
+        <span class="card-link">View Project →</span>
+      </div>
+    </div>
+
+    <!-- Project 5: Netflix Analysis -->
+    <div class="project-card" onclick="openModal('modal-netflix')">
+      <div class="card-header band-red">
+        <span class="card-icon">🎬</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-analytics">Pandas</span>
+          <span class="card-tag tag-analytics">Matplotlib</span>
+        </div>
+        <h3 class="card-title">Netflix Content Analysis</h3>
+        <p class="card-desc">Python-driven content strategy analysis — genre trend detection, Movies vs. TV Shows performance comparison, and IMDb rating distribution using Pandas and Matplotlib on the full Netflix dataset.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">2024</span>
+        <span class="card-link">View Project →</span>
+      </div>
+    </div>
+
+    <!-- Project 6: Certificate Automation (Case Study) -->
+    <div class="project-card" onclick="openModal('modal-cert')">
+      <div class="card-header band-green">
+        <span class="card-icon">⚡</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-auto">Automation</span>
+          <span class="card-tag tag-api">API</span>
+        </div>
+        <h3 class="card-title">Certificate Automation Pipeline</h3>
+        <p class="card-desc">Case study: eliminated a 30–45 minute manual certificate production process at a global compliance organization, reducing it to under 1 minute through a Python automation pipeline with dynamic data population and PDF generation.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-date">2025 · Case Study</span>
+        <span class="card-link">Read Case Study →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2 class="section-title">Experience</h2>
+  <p class="section-sub">Four years of progressive technical growth in a global compliance environment.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot">💼</div>
+      <div class="timeline-content">
+        <div class="timeline-date">JAN 2025 — PRESENT</div>
+        <div class="timeline-role">Data Systems Manager</div>
+        <div class="timeline-org">WRAP — Worldwide Responsible Accredited Production · Arlington, VA</div>
+        <ul class="timeline-points">
+          <li>Lead a team of 3 BI analysts; own the analytics roadmap and reporting infrastructure</li>
+          <li>Deliver Power BI dashboards and compliance reporting for 9 board-level stakeholders across 170 countries</li>
+          <li>Designed and built REST API integration reconciling 4,000+ facility records across platforms</li>
+          <li>Automated certificate generation pipeline — 45 minutes reduced to under 1 minute</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">📊</div>
+      <div class="timeline-content">
+        <div class="timeline-date">JAN 2023 — JAN 2025</div>
+        <div class="timeline-role">Senior Data Analyst</div>
+        <div class="timeline-org">WRAP · Arlington, VA</div>
+        <ul class="timeline-points">
+          <li>Built and maintained Power BI dashboards for global audit and compliance reporting</li>
+          <li>Automated recurring compliance reports via Power Automate and SQL</li>
+          <li>Developed REST API integration with Pivot88 audit platform for automated data extraction</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">🔍</div>
+      <div class="timeline-content">
+        <div class="timeline-date">AUG 2021 — JAN 2023</div>
+        <div class="timeline-role">Data Analyst</div>
+        <div class="timeline-org">WRAP · Arlington, VA</div>
+        <ul class="timeline-points">
+          <li>Designed Power BI dashboards tracking compliance KPIs: audit rates, NPS, CSAT</li>
+          <li>Performed advanced SQL analysis on audit datasets; presented findings at quarterly reviews</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">📋</div>
+      <div class="timeline-content">
+        <div class="timeline-date">JAN 2021 — AUG 2021</div>
+        <div class="timeline-role">Data Analyst</div>
+        <div class="timeline-org">ABPA Institute · McLean, VA</div>
+        <ul class="timeline-points">
+          <li>Analyzed government program data; developed candidate selection models and performance dashboards</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">🎓</div>
+      <div class="timeline-content">
+        <div class="timeline-date">DEC 2021</div>
+        <div class="timeline-role">B.A. — Government & International Politics</div>
+        <div class="timeline-org">George Mason University · Fairfax, VA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Talk</div>
+  <h2 class="section-title">Get in Touch</h2>
+  <p class="section-sub">Open to BI leadership, data engineering, and analytics management roles.</p>
+  <div class="contact-links">
+    <a href="mailto:nacer.b.driouich@gmail.com" class="contact-link">✉ nacer.b.driouich@gmail.com</a>
+    <a href="https://www.linkedin.com/in/nacer-ben-driouich-95659536a/" target="_blank" class="contact-link">in LinkedIn</a>
+    <a href="https://github.com/NacerBenDriouich" target="_blank" class="contact-link">⌥ GitHub</a>
+  </div>
+</section>
+
+<footer>© 2026 Nacer Ben Driouich — Built for GitHub Pages</footer>
+
+<!-- ══════════════════════════════════════
+     MODALS
+══════════════════════════════════════ -->
+
+<!-- BIKESHOP -->
+<div class="modal-overlay" id="modal-bikeshop" onclick="closeOnOverlay(event, this)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-bikeshop')">✕</button>
+    <div class="modal-header">
+      <div class="modal-tags">
+        <span class="card-tag tag-bi">Power BI</span>
+        <span class="card-tag tag-sql">SQL</span>
+        <span class="card-tag tag-analytics">DAX</span>
+        <span class="card-tag tag-analytics">Star Schema</span>
+      </div>
+      <h2 class="modal-title">Supply Chain & Sales Analysis</h2>
+      <p class="modal-subtitle">A full BI solution built on transactional retail data — from raw SQL extraction to an interactive executive dashboard.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Business Request</div>
+        <p>A bike shop needed a Power BI report to analyze sales performance, product trends, and customer behavior across regions and time periods — with enough interactivity to support both operational and strategic decisions.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Approach</div>
+        <ul>
+          <li><strong>Data Extraction:</strong> Pulled from SQL database — calendar, customer, product, and sales fact tables</li>
+          <li><strong>Data Modeling:</strong> Built a star schema with a central sales fact table and four dimension tables; cleansed using SQL (deduplication, type validation, outlier removal)</li>
+          <li><strong>DAX Measures:</strong> ROI, Profit Margin, Customer Lifetime Value, revenue growth by period</li>
+          <li><strong>Dashboard:</strong> Interactive Power BI with slicers, drill-through, custom visuals, and KPI cards</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Key Findings</div>
+        <ul>
+          <li>Mountain Bikes drove 95% of total revenue ($21M) — accessories and clothing significantly underperformed</li>
+          <li>Sales peaked in May and December — inventory and staffing cycles were misaligned</li>
+          <li>East Coast cities (Washington DC) and West Coast (Seattle, San Francisco) accounted for the highest sales density</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">SQL Sample</div>
+        <div class="code-block">SELECT c.customerkey, c.firstname + ' ' + c.lastname AS [Full Name],
+  CASE c.gender WHEN 'M' THEN 'Male' WHEN 'F' THEN 'Female' END AS Gender,
+  c.datefirstpurchase, g.city AS [Customer City]
+FROM [AdventureWorksDW2019].[dbo].[DimCustomer] AS c
+LEFT JOIN dbo.dimgeography AS g ON g.geographykey = c.geographykey
+ORDER BY CustomerKey ASC</div>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <a href="https://app.powerbi.com/view?r=eyJrIjoiMDZiZDdhMDUtZTZkZS00NDEzLWJmZWMtZWRlY2I5M2ViZDllIiwidCI6IjQzNWUxYTgwLTRhZjUtNDZjMi1iNDI1LWMxMDIxOThmYzZjZiIsImMiOjF9" target="_blank" class="btn-modal-primary">Open Dashboard →</a>
+    </div>
+  </div>
+</div>
+
+<!-- MARKETING -->
+<div class="modal-overlay" id="modal-marketing" onclick="closeOnOverlay(event, this)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-marketing')">✕</button>
+    <div class="modal-header">
+      <div class="modal-tags">
+        <span class="card-tag tag-bi">Power BI</span>
+        <span class="card-tag tag-analytics">ETL</span>
+        <span class="card-tag tag-analytics">Multi-platform</span>
+      </div>
+      <h2 class="modal-title">Marketing Campaign Analysis</h2>
+      <p class="modal-subtitle">Performance reporting across Facebook, Pinterest, and Instagram for a DC-area clothing brand's seasonal campaigns.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Context</div>
+        <p>A DC-based clothing store ran targeted campaigns for Spring, Fall, and Summer across three social platforms and three cities (Washington DC, Arlington VA, Alexandria VA). Daily metrics included Impressions, CTR, CPC, Spend, Conversions, and Conversion Value.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Approach</div>
+        <ul>
+          <li>Consolidated raw data from multiple platforms and removed duplicates and out-of-area entries</li>
+          <li>Applied ETL transformation workflows to normalize metrics across platforms</li>
+          <li>Grouped data by city, campaign, and platform to evaluate geographic and seasonal patterns</li>
+          <li>Built a 3-page interactive Power BI dashboard with drill-through charts and KPI tracking</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Key Findings</div>
+        <ul>
+          <li><strong>Instagram</strong> had the highest CTR and conversion efficiency — most cost-effective platform overall</li>
+          <li><strong>Arlington, VA</strong> showed the highest ROAS with the most conversions per dollar spent</li>
+          <li><strong>Discount campaigns</strong> outperformed collection showcases in conversion rate, despite higher CPC</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Impact</div>
+        <div class="impact-grid">
+          <div class="impact-item"><strong>Budget Reallocation</strong><span>Data-driven recommendations on platform spend distribution to maximize ROI</span></div>
+          <div class="impact-item"><strong>Seasonal Planning</strong><span>Insights on campaign timing by season and city to guide future campaign strategy</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <a href="https://app.powerbi.com/view?r=eyJrIjoiNjkxMWIzOGQtZTc3MS00ZmIyLWEzMWMtZGYxN2QzZmM4MzM0IiwidCI6IjQzNWUxYTgwLTRhZjUtNDZjMi1iNDI1LWMxMDIxOThmYzZjZiIsImMiOjF9" target="_blank" class="btn-modal-primary">Open Dashboard →</a>
+    </div>
+  </div>
+</div>
+
+<!-- OLYMPIC -->
+<div class="modal-overlay" id="modal-olympic" onclick="closeOnOverlay(event, this)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-olympic')">✕</button>
+    <div class="modal-header">
+      <div class="modal-tags">
+        <span class="card-tag tag-bi">Power BI</span>
+        <span class="card-tag tag-sql">SQL</span>
+      </div>
+      <h2 class="modal-title">Olympic Games Historical Analysis</h2>
+      <p class="modal-subtitle">Interactive historical performance dashboard for Summer Olympic Games — built for a media outlet use case.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Business Request</div>
+        <p>A news media outlet needed to help readers understand how countries have historically performed in the Summer Olympics, with the ability to filter by country, athlete, sport, and medal type.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Data Transformation (SQL)</div>
+        <div class="code-block">SELECT [ID], [Name] AS 'Competitor Name',
+  CASE WHEN SEX = 'M' THEN 'Male' ELSE 'Female' END AS Sex,
+  [Age],
+  CASE WHEN [Age] &lt; 18 THEN 'Under 18'
+       WHEN [Age] BETWEEN 18 AND 25 THEN '18-25'
+       WHEN [Age] BETWEEN 25 AND 30 THEN '25-30'
+       WHEN [Age] > 30 THEN 'Over 30'
+  END AS [Age Grouping],
+  LEFT(Games, CHARINDEX(' ', Games) - 1) AS 'Year',
+  [Sport], [Event],
+  CASE WHEN Medal = 'NA' THEN 'Not Registered' ELSE Medal END AS Medal
+FROM [olympic_games].[dbo].[athletes_event_results]
+WHERE RIGHT(Games, CHARINDEX(' ', REVERSE(Games))-1) = 'Summer'</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Features</div>
+        <ul>
+          <li>Filter by country, athlete, sport, and medal type</li>
+          <li>Age group segmentation across competitors</li>
+          <li>Historical medal trends over time by nation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <a href="https://app.powerbi.com/view?r=eyJrIjoiYTdiY2Q1YzAtMDFhOS00Mjc0LTkyY2MtZTExNTA3NzM1MjY5IiwidCI6IjQzNWUxYTgwLTRhZjUtNDZjMi1iNDI1LWMxMDIxOThmYzZjZiIsImMiOjF9" target="_blank" class="btn-modal-primary">Open Dashboard →</a>
+      <a href="https://drive.google.com/file/d/1Zt55saEonJgNHfnSwO3G-Fi8JlBrQKMW/view" target="_blank" class="btn-modal-secondary">Raw SQL Database</a>
+    </div>
+  </div>
+</div>
+
+<!-- AMAZON -->
+<div class="modal-overlay" id="modal-amazon" onclick="closeOnOverlay(event, this)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-amazon')">✕</button>
+    <div class="modal-header">
+      <div class="modal-tags">
+        <span class="card-tag tag-python">Python</span>
+        <span class="card-tag tag-sql">SQL</span>
+        <span class="card-tag tag-api">RapidFuzz</span>
+        <span class="card-tag tag-api">Pandas</span>
+      </div>
+      <h2 class="modal-title">Supplier List Matching Tool</h2>
+      <p class="modal-subtitle">Automated fuzzy-matching tool to reconcile Amazon's public supplier list against an internal SQL database — handling real-world inconsistencies at scale.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">The Problem</div>
+        <p>The business needed to match a large Excel file of facilities (from Amazon's public supply chain disclosure) against an internal SQL Server database. Because records used inconsistent casing, abbreviations, and spelling variations, exact matching failed. Manual lookups were taking hours per batch.</p>
+        <p>Example mismatches: "PT. SEMARANG GARMENT" vs "Pt Semarang Garment" — same company, impossible to match exactly.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Approach</div>
+        <ul>
+          <li>Built with Python (Pandas, RapidFuzz, pyodbc)</li>
+          <li>Normalized both datasets: lowercased, trimmed whitespace, collapsed extra spaces</li>
+          <li>Applied <strong>fuzzy string matching (token_set_ratio)</strong> on company names</li>
+          <li>Added a secondary <strong>address similarity score</strong> to validate matches</li>
+          <li>Exported combined Excel file with original data, best match, name score, and address score</li>
+          <li>Results capped at 80% threshold — anything below flagged for manual review</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Impact</div>
+        <div class="impact-grid">
+          <div class="impact-item"><strong>Hours → Minutes</strong><span>Manual record lookup time eliminated through automated matching pipeline</span></div>
+          <div class="impact-item"><strong>Repeatable</strong><span>Tool runs on any new supplier list submission without modification</span></div>
+          <div class="impact-item"><strong>Accurate</strong><span>Handles case, spacing, and naming variation that breaks exact matching</span></div>
+          <div class="impact-item"><strong>Auditable</strong><span>Every match includes a confidence score for review and validation</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <a href="https://sustainability.aboutamazon.com/human-rights/supply-chain" target="_blank" class="btn-modal-secondary">Source Data (Amazon)</a>
+    </div>
+  </div>
+</div>
+
+<!-- NETFLIX -->
+<div class="modal-overlay" id="modal-netflix" onclick="closeOnOverlay(event, this)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-netflix')">✕</button>
+    <div class="modal-header">
+      <div class="modal-tags">
+        <span class="card-tag tag-python">Python</span>
+        <span class="card-tag tag-analytics">Pandas</span>
+        <span class="card-tag tag-analytics">Matplotlib</span>
+      </div>
+      <h2 class="modal-title">Netflix Content Analysis</h2>
+      <p class="modal-subtitle">Python-driven content strategy analysis using the full Netflix dataset from Kaggle.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Analysis 1 — Genre Trends</div>
+        <p>Identified which genres have trended upward since 2000 to understand viewer preferences and guide content investment decisions. Extracted and exploded multi-genre titles, counted by year, and plotted the top 12 genres over time.</p>
+        <p><strong>Finding:</strong> Drama and Comedy show consistently high and growing volume. Horror and Fantasy show moderate growth — potential opportunity for targeted investment.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Analysis 2 — Movies vs. TV Shows</div>
+        <p>Evaluated whether TV Shows or Movies perform better on Netflix using average IMDb ratings and vote counts. Built a dual-axis bar chart to surface both engagement and quality signals simultaneously.</p>
+        <p><strong>Finding:</strong> Movies have a broader IMDb rating distribution; TV Shows show a more concentrated, curated range — reflecting Netflix's different editorial strategy for each format.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Code Sample</div>
+        <div class="code-block">genre_trends = netflix_data[['genres', 'releaseYear']].dropna()
+genre_trends = genre_trends.assign(
+    genres=genre_trends['genres'].str.split(', ')
+).explode('genres')
+
+recent = genre_trends[genre_trends['releaseYear'] >= 2000]
+counts = recent.groupby(['releaseYear', 'genres']).size().reset_index(name='count')
+top_genres = counts['genres'].value_counts().head(12).index</div>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <a href="https://www.kaggle.com/datasets/octopusteam/full-netflix-dataset/data" target="_blank" class="btn-modal-secondary">Kaggle Dataset</a>
+    </div>
+  </div>
+</div>
+
+<!-- CERT AUTOMATION -->
+<div class="modal-overlay" id="modal-cert" onclick="closeOnOverlay(event, this)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-cert')">✕</button>
+    <div class="modal-header">
+      <div class="confidential-badge">🔒 Case Study — Production work, no proprietary data shared</div>
+      <div class="modal-tags">
+        <span class="card-tag tag-python">Python</span>
+        <span class="card-tag tag-auto">Automation</span>
+        <span class="card-tag tag-api">Google Maps API</span>
+      </div>
+      <h2 class="modal-title">Certificate Automation Pipeline</h2>
+      <p class="modal-subtitle">Eliminated a manual, hours-consuming certification process at a global compliance organization — reducing per-certificate time from 30–45 minutes to under 1 minute.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">The Problem</div>
+        <p>Compliance certificates were produced entirely by hand — staff would populate a Word document field by field, format it manually, convert it to PDF, and email or FedEx it to facilities worldwide. For a global organization certifying manufacturers across 170 countries, this was consuming significant staff hours and budget per certificate.</p>
+        <p>A secondary problem: international facility addresses were entered as free-form user input, arriving as a single unstructured line of text. This made records inconsistent, unverifiable, and unpresentable on certificates going to facilities in dozens of address formats.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Approach — Three Phases</div>
+        <ul>
+          <li><strong>Phase 1 (Semi-manual):</strong> Built structured data entry forms that auto-populated certificate template fields — reduced manual entry time significantly</li>
+          <li><strong>Phase 2 (QR code):</strong> Introduced QR codes on certificates to enable digital verification and eliminate most physical FedEx mailing worldwide</li>
+          <li><strong>Phase 3 (Full automation):</strong> One-click pipeline — pulls data from user submissions, generates the certificate with embedded QR code, converts to PDF, and sends automatically</li>
+          <li><strong>Address standardization:</strong> Integrated Google Maps API to parse free-text address input into structured city, state/province, zip code, and country fields</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Stack</div>
+        <ul>
+          <li>Python (lxml, python-docx) for document generation</li>
+          <li>Word SDT content controls for dynamic field population</li>
+          <li>LibreOffice for PDF conversion</li>
+          <li>Google Maps API for address parsing and standardization</li>
+          <li>Power Automate for email delivery pipeline</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Outcome</div>
+        <div class="impact-grid">
+          <div class="impact-item"><strong>30–45 min → under 1 min</strong><span>Per-certificate processing time, including generation, formatting, and delivery</span></div>
+          <div class="impact-item"><strong>FedEx eliminated</strong><span>QR-based digital verification replaced international physical mailing for most certificates</span></div>
+          <div class="impact-item"><strong>Address data standardized</strong><span>Unstructured international input parsed into clean structured fields via Google Maps API</span></div>
+          <div class="impact-item"><strong>Zero manual steps</strong><span>Entire pipeline runs from a single trigger with no staff intervention</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <span style="font-size:13px; color: var(--gray); padding: 12px 0;">Production work — code not publicly shared</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeOnOverlay(e, el) {
+    if (e.target === el) {
+      el.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+</script>
+</body>
+</html>
