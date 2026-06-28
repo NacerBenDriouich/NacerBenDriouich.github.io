@@ -81,11 +81,14 @@
     .hero-name {
       font-family: 'Playfair Display', serif;
       font-size: clamp(48px, 7vw, 88px);
-      line-height: 1.05; color: var(--white);
+      line-height: 1.05; color: var(--gold);
       margin-bottom: 20px;
       animation: fadeUp 0.8s 0.1s ease both;
     }
-    .hero-name span { color: var(--gold); }
+    .hero-name span {
+      color: var(--gold);
+      animation: glow 3s ease infinite;
+    }
     .hero-title {
       font-size: 18px; font-weight: 300;
       color: rgba(255,255,255,0.65);
@@ -1015,7 +1018,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">Data & Business Intelligence</div>
-  <h1 class="hero-name">Nacer<br><span>Ben Driouich</span></h1>
+  <h1 class="hero-name"><span>Nacer Ben Driouich</span></h1>
   <p class="hero-title">Manager, Business Intelligence — building analytics systems, leading BI teams, and turning complex data into decisions that matter.</p>
   <div class="hero-cta">
     <a href="#portfolio" class="btn-primary">View Projects</a>
