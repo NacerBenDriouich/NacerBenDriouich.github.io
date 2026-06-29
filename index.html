@@ -83,14 +83,12 @@
       font-family: 'DM Mono', monospace;
       font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
       color: var(--gold); margin-bottom: 24px;
-      animation: fadeUp 0.8s ease both;
     }
     .hero-name {
       font-family: 'Playfair Display', serif;
       font-size: clamp(48px, 7vw, 88px);
       line-height: 1.05; color: var(--gold);
       margin-bottom: 20px;
-      animation: fadeUp 0.8s 0.1s ease both;
       background: transparent !important;
       border: none !important;
       box-shadow: none !important;
@@ -100,7 +98,6 @@
     }
     .hero-name span {
       color: var(--gold);
-      animation: none;
       background: transparent !important;
       border: none !important;
       outline: none !important;
@@ -113,11 +110,9 @@
       font-size: 18px; font-weight: 300;
       color: rgba(255,255,255,0.65);
       margin-bottom: 40px; max-width: 520px; line-height: 1.6;
-      animation: fadeUp 0.8s 0.2s ease both;
     }
     .hero-cta {
       display: flex; gap: 16px; flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.3s ease both;
     }
     .btn-primary {
       background: var(--gold); color: var(--navy);
@@ -138,7 +133,6 @@
 
     .hero-stats {
       display: flex; gap: 48px; margin-top: 80px;
-      animation: fadeUp 0.8s 0.4s ease both;
       border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 40px; width: 100%; max-width: 600px;
     }
@@ -157,7 +151,6 @@
       display: flex; align-items: center; gap: 12px;
       color: rgba(255,255,255,0.3); font-size: 11px;
       letter-spacing: 2px; text-transform: uppercase;
-      animation: fadeUp 0.8s 0.6s ease both;
     }
     .scroll-line {
       width: 40px; height: 1px;
@@ -169,59 +162,6 @@
       position: absolute; top: 0; left: -100%;
       width: 100%; height: 100%;
       background: var(--gold);
-      animation: slideLine 2s ease infinite;
-    }
-    @keyframes slideLine { to { left: 100%; } }
-
-    /* ── ENHANCED ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-40px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes slideInRight {
-      from { opacity: 0; transform: translateX(40px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.3); }
-      50% { box-shadow: 0 0 40px rgba(201,168,76,0.6); }
-    }
-
-    @keyframes countUp {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
-    }
-
-    /* ── NAV ANIMATIONS ── */
-    nav {
-      animation: slideDown 0.6s ease both;
-    }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .nav-logo {
@@ -252,21 +192,11 @@
     }
 
     /* ── HERO ENHANCEMENTS ── */
-    .hero::before {
-      animation: gradientShift 8s ease infinite;
-    }
-
-    @keyframes gradientShift {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
-    }
 
     .hero-eyebrow {
-      animation: slideInLeft 0.8s ease both;
     }
 
     .hero-name {
-      animation: fadeUp 0.9s 0.15s ease both;
       position: relative;
       background: transparent !important;
       border: none !important;
@@ -276,7 +206,6 @@
     }
 
     .hero-name span {
-      animation: none;
       background: transparent !important;
       border: none !important;
       outline: none !important;
@@ -287,11 +216,9 @@
     }
 
     .hero-title {
-      animation: fadeUp 0.9s 0.25s ease both;
     }
 
     .hero-cta {
-      animation: fadeUp 0.9s 0.35s ease both;
     }
 
     .btn-primary, .btn-outline {
@@ -315,11 +242,9 @@
     }
 
     .hero-stats {
-      animation: fadeUp 0.9s 0.45s ease both;
     }
 
     .stat-item {
-      animation: countUp 0.6s ease-out both;
     }
 
     .stat-item:nth-child(1) { animation-delay: 0.6s; }
@@ -337,7 +262,6 @@
     }
 
     .scroll-indicator {
-      animation: fadeUp 0.9s 0.7s ease both;
       opacity: 0.6;
       transition: opacity 0.3s ease;
     }
@@ -382,7 +306,6 @@
       font-family: 'DM Mono', monospace;
       font-size: 12px; letter-spacing: 0.5px;
       border: 1px solid var(--border);
-      animation: fadeUp 0.6s ease both;
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       cursor: pointer;
     }
@@ -411,7 +334,6 @@
     .highlight-card {
       background: var(--cream); padding: 28px 32px;
       border-left: 3px solid var(--gold);
-      animation: slideInRight 0.8s ease both;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -472,7 +394,6 @@
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease, border-color 0.3s ease;
       cursor: pointer;
       position: relative;
-      animation: fadeUp 0.6s ease both;
     }
 
     .project-card:nth-child(1) { animation-delay: 0.1s; }
@@ -520,13 +441,8 @@
       width: 200%;
       height: 200%;
       background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
-      animation: rotate 20s linear infinite;
     }
 
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
 
     .card-icon {
       font-size: 48px; opacity: 0.9;
@@ -554,7 +470,6 @@
 
     .card-tags {
       display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;
-      animation: fadeUp 0.6s ease 0.3s both;
     }
 
     .card-tag {
@@ -625,11 +540,6 @@
       background: var(--white);
       max-width: 800px; width: 100%;
       margin: auto; position: relative;
-      animation: modalIn 0.3s ease;
-    }
-    @keyframes modalIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     .modal-header {
       padding: 48px 48px 32px;
@@ -722,7 +632,6 @@
     .timeline-item {
       display: flex; gap: 32px; margin-bottom: 48px;
       position: relative;
-      animation: slideInLeft 0.8s ease both;
     }
 
     .timeline-item:nth-child(1) { animation-delay: 0.1s; }
@@ -736,7 +645,6 @@
       position: absolute; left: 16px; top: 36px;
       bottom: -48px; width: 1px;
       background: var(--border);
-      animation: slideDown 0.8s ease both;
     }
 
     .timeline-item:last-child::before { display: none; }
@@ -818,17 +726,14 @@
 
     #contact .section-title {
       color: var(--white);
-      animation: fadeUp 0.8s ease both;
     }
 
     #contact .section-sub {
       color: rgba(255,255,255,0.5); margin: 0 auto 48px;
-      animation: fadeUp 0.8s 0.1s ease both;
     }
 
     .contact-links {
       display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.2s ease both;
     }
     .contact-link {
       display: flex; align-items: center; gap: 10px;
@@ -836,7 +741,6 @@
       font-size: 14px; padding: 14px 28px;
       border: 1px solid rgba(255,255,255,0.15);
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      animation: fadeUp 0.6s ease both;
       position: relative;
       overflow: hidden;
     }
@@ -875,13 +779,8 @@
       padding: 24px; font-size: 12px;
       color: rgba(255,255,255,0.25);
       font-family: 'DM Mono', monospace; letter-spacing: 1px;
-      animation: fadeUp 0.8s 0.4s ease both;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
     @media (max-width: 768px) {
       nav { padding: 0 24px; }
@@ -901,7 +800,6 @@
       margin-top: 64px;
       padding-top: 48px;
       border-top: 2px solid var(--border);
-      animation: fadeUp 0.8s ease both;
     }
 
     .cert-grid {
@@ -920,7 +818,6 @@
       position: relative;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      animation: fadeUp 0.6s ease both;
     }
 
     .cert-card:nth-child(1) { animation-delay: 0.1s; }
@@ -957,19 +854,16 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 16px;
-      animation: fadeUp 0.6s ease 0.1s both;
     }
 
     .cert-icon {
       font-size: 28px;
       color: var(--gold);
       transition: all 0.3s ease;
-      animation: float 3s ease infinite;
     }
 
     .cert-card:hover .cert-icon {
       transform: scale(1.2) rotate(15deg);
-      animation: none;
     }
 
     .cert-name {
@@ -978,7 +872,6 @@
       color: var(--navy);
       margin: 0;
       transition: color 0.3s ease;
-      animation: fadeUp 0.6s ease 0.15s both;
     }
 
     .cert-card:hover .cert-name {
@@ -990,7 +883,6 @@
       color: var(--gray);
       line-height: 1.6;
       margin: 12px 0;
-      animation: fadeUp 0.6s ease 0.2s both;
       transition: color 0.3s ease;
     }
 
@@ -1005,7 +897,6 @@
       margin-top: 16px;
       text-transform: uppercase;
       font-weight: 600;
-      animation: fadeUp 0.6s ease 0.25s both;
       transition: all 0.3s ease;
     }
 
