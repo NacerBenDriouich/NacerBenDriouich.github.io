@@ -66,15 +66,14 @@
       position: relative; overflow: hidden;
     }
 
-    .hero-video {
+    .hero-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
       z-index: 1;
-      opacity: 0.7;
+      display: block;
     }
 
     .hero-content {
@@ -1061,9 +1060,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="hero-bg.mp4" type="video/mp4">
-  </video>
+  <canvas id="heroCanvas" class="hero-canvas"></canvas>
   <div class="hero-content">
     <div class="hero-eyebrow">Data & Business Intelligence</div>
   <h1 class="hero-name"><span>Nacer Ben Driouich</span></h1>
@@ -1741,6 +1738,109 @@ top_genres = counts['genres'].value_counts().head(12).index</div>
       });
     }
   });
+
+  // ── HERO CANVAS ANIMATION ──
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let animationId;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth * window.devicePixelRatio;
+    canvas.height = window.innerHeight * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const particles = [];
+  const waves = [];
+  let time = 0;
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * window.innerWidth;
+      this.y = Math.random() * window.innerHeight;
+      this.vx = (Math.random() - 0.5) * 2;
+      this.vy = (Math.random() - 0.5) * 2;
+      this.size = Math.random() * 2 + 1;
+      this.opacity = Math.random() * 0.5 + 0.3;
+      this.color = Math.random() > 0.5 ? '#4db8ff' : '#c9a84c';
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.opacity -= 0.01;
+
+      if (this.x < 0 || this.x > window.innerWidth) this.vx *= -1;
+      if (this.y < 0 || this.y > window.innerHeight) this.vy *= -1;
+
+      if (this.opacity <= 0) return false;
+      return true;
+    }
+
+    draw() {
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawWaves() {
+    ctx.globalAlpha = 0.3;
+    ctx.strokeStyle = '#4db8ff';
+    ctx.lineWidth = 2;
+
+    for (let waveIdx = 0; waveIdx < 3; waveIdx++) {
+      ctx.beginPath();
+      for (let x = 0; x < window.innerWidth; x += 10) {
+        const y = window.innerHeight / 2 + Math.sin((x + time * 2) / 100 + waveIdx * 2) * 50;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = '#c9a84c';
+    for (let waveIdx = 0; waveIdx < 2; waveIdx++) {
+      ctx.beginPath();
+      for (let x = 0; x < window.innerWidth; x += 10) {
+        const y = window.innerHeight / 2.5 + Math.cos((x - time * 1.5) / 120 + waveIdx * 3) * 40;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function animate() {
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = 'rgba(15, 31, 61, 0.05)';
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+    drawWaves();
+
+    if (Math.random() < 0.3) {
+      particles.push(new Particle());
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      if (!particles[i].update()) {
+        particles.splice(i, 1);
+      } else {
+        particles[i].draw();
+      }
+    }
+
+    time++;
+    ctx.globalAlpha = 1;
+    animationId = requestAnimationFrame(animate);
+  }
+
+  animate();
 </script>
 </body>
 </html>
