@@ -67,15 +67,15 @@
       position: relative; overflow: hidden;
     }
 
-    .hero-canvas {
+    .hero-video {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
       z-index: 1;
-      display: block;
-      pointer-events: none;
+      opacity: 0.8;
     }
 
     .hero-content {
@@ -1062,7 +1062,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <canvas id="heroCanvas" class="hero-canvas"></canvas>
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="hero-bg.mp4" type="video/mp4">
+  </video>
   <div class="hero-content">
     <div class="hero-eyebrow">Data & Business Intelligence</div>
   <h1 class="hero-name"><span>Nacer Ben Driouich</span></h1>
@@ -1741,117 +1743,6 @@ top_genres = counts['genres'].value_counts().head(12).index</div>
       });
     }
   });
-
-  // ── HERO BANNER ANIMATION ──
-  const canvas = document.getElementById('heroCanvas');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let animationId;
-    let mouseX = canvas.width / 2;
-    let mouseY = canvas.height / 2;
-
-    function resizeCanvas() {
-      const hero = canvas.parentElement;
-      canvas.width = hero.offsetWidth;
-      canvas.height = hero.offsetHeight;
-    }
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    document.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    });
-
-    const particles = [];
-    let time = 0;
-
-    class DataParticle {
-      constructor(x, y, vx, vy, isGold = false) {
-        this.x = x;
-        this.y = y;
-        this.vx = vx;
-        this.vy = vy;
-        this.age = 0;
-        this.maxAge = 150 + Math.random() * 150;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.isGold = isGold;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.age++;
-
-        this.y += Math.sin(this.x / 100 + time / 50) * 0.3;
-
-        const dx = mouseX - this.x;
-        const dy = mouseY - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 150 && distance > 0) {
-          const force = 0.015 * (1 - distance / 150);
-          this.vx += (dx / distance) * force;
-          this.vy += (dy / distance) * force;
-        }
-
-        return this.age < this.maxAge;
-      }
-
-      draw() {
-        const progress = this.age / this.maxAge;
-        const opacity = (1 - progress) * 0.5;
-
-        ctx.globalAlpha = opacity;
-        ctx.fillStyle = this.isGold ? '#c9a84c' : '#4db8ff';
-        ctx.shadowColor = this.isGold ? 'rgba(201, 168, 76, 0.3)' : 'rgba(77, 184, 255, 0.3)';
-        ctx.shadowBlur = 6;
-
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-    }
-
-    function spawnStream() {
-      if (Math.random() < 0.15) {
-        const y = Math.random() * canvas.height;
-        particles.push(new DataParticle(-5, y, 1.2 + Math.random() * 0.8, -0.2 + Math.random() * 0.4, false));
-      }
-      if (Math.random() < 0.12) {
-        const y = Math.random() * canvas.height;
-        particles.push(new DataParticle(canvas.width + 5, y, -1.2 + Math.random() * -0.8, 0.2 + Math.random() * 0.3, true));
-      }
-      if (Math.random() < 0.1) {
-        const x = Math.random() * canvas.width;
-        particles.push(new DataParticle(x, -5, Math.random() * 0.4 - 0.2, 1.5 + Math.random() * 0.6, false));
-      }
-    }
-
-    function animate() {
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = 'rgba(15, 31, 61, 0.08)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      spawnStream();
-
-      for (let i = particles.length - 1; i >= 0; i--) {
-        if (!particles[i].update()) {
-          particles.splice(i, 1);
-        } else {
-          particles[i].draw();
-        }
-      }
-
-      time++;
-      animationId = requestAnimationFrame(animate);
-    }
-
-    animate();
-  }
 
 </script>
 </body>
