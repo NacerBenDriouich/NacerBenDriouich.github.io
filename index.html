@@ -60,27 +60,14 @@
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      background: transparent;
+      background: var(--navy);
       display: flex; flex-direction: column;
       justify-content: center; align-items: flex-start;
       padding: 120px 80px 80px;
       position: relative; overflow: hidden;
     }
 
-    .hero-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      display: block;
-      pointer-events: none;
-    }
-
     .hero-content {
-      position: relative;
-      z-index: 2;
       width: 100%;
     }
 
@@ -825,7 +812,7 @@
 
     /* ── CONTACT ── */
     #contact {
-      background: transparent;
+      background: var(--navy);
       text-align: center; padding: 100px 80px;
     }
 
@@ -1062,7 +1049,6 @@
 
 <!-- HERO -->
 <section class="hero">
-  <canvas id="heroCanvas" class="hero-canvas"></canvas>
   <div class="hero-content">
     <div class="hero-eyebrow">Data & Business Intelligence</div>
   <h1 class="hero-name"><span>Nacer Ben Driouich</span></h1>
@@ -1099,6 +1085,7 @@
     <!-- CERTIFICATES SUBSECTION -->
     <div class="certificates-section">
       <div class="section-label">PROFESSIONAL CERTIFICATIONS</div>
+      <h2 class="section-title">Certifications</h2>
       <div class="cert-grid">
         <!-- AnalystBuilder -->
         <div class="cert-card">
@@ -1741,171 +1728,6 @@ top_genres = counts['genres'].value_counts().head(12).index</div>
     }
   });
 
-  // ── HERO CANVAS ANIMATION ──
-  const canvas = document.getElementById('heroCanvas');
-  const ctx = canvas.getContext('2d');
-  let animationId;
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth * window.devicePixelRatio;
-    canvas.height = window.innerHeight * window.devicePixelRatio;
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  }
-
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  // Track mouse movement
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  const particles = [];
-  let time = 0;
-
-  class DataParticle {
-    constructor(x, y, vx, vy, isGold = false) {
-      this.x = x;
-      this.y = y;
-      this.startX = x;
-      this.startY = y;
-      this.vx = vx;
-      this.vy = vy;
-      this.age = 0;
-      this.maxAge = 200 + Math.random() * 200;
-      this.size = Math.random() * 1.5 + 0.5;
-      this.isGold = isGold;
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.age++;
-
-      // Gentle sine wave drift
-      this.y += Math.sin(this.x / 100 + time / 50) * 0.5;
-
-      // Subtle mouse attraction
-      const dx = mouseX - this.x;
-      const dy = mouseY - this.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < 200 && distance > 0) {
-        const force = 0.02 * (1 - distance / 200);
-        this.vx += (dx / distance) * force;
-        this.vy += (dy / distance) * force;
-      }
-
-      const progress = this.age / this.maxAge;
-      return progress < 1;
-    }
-
-    draw() {
-      const progress = this.age / this.maxAge;
-      const opacity = (1 - progress) * 0.6;
-
-      ctx.globalAlpha = opacity;
-      ctx.fillStyle = this.isGold ? '#c9a84c' : '#4db8ff';
-
-      // Glow effect
-      ctx.shadowColor = this.isGold ? 'rgba(201, 168, 76, 0.5)' : 'rgba(77, 184, 255, 0.5)';
-      ctx.shadowBlur = 8;
-
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.shadowBlur = 0;
-    }
-  }
-
-  function spawnStream() {
-    // Blue stream from left
-    if (Math.random() < 0.2) {
-      const y = Math.random() * window.innerHeight;
-      particles.push(new DataParticle(-10, y, 1.5 + Math.random() * 1, -0.3 + Math.random() * 0.6, false));
-    }
-
-    // Gold stream from right
-    if (Math.random() < 0.15) {
-      const y = Math.random() * window.innerHeight;
-      particles.push(new DataParticle(window.innerWidth + 10, y, -1.2 + Math.random() * -1, 0.2 + Math.random() * 0.4, true));
-    }
-
-    // Blue stream from top-right diagonal
-    if (Math.random() < 0.15) {
-      const x = window.innerWidth - Math.random() * (window.innerWidth * 0.3);
-      particles.push(new DataParticle(x, -10, 0.5, 1.8 + Math.random() * 0.8, false));
-    }
-
-    // Gold accent from bottom
-    if (Math.random() < 0.1) {
-      const x = Math.random() * window.innerWidth;
-      particles.push(new DataParticle(x, window.innerHeight + 10, Math.random() * 0.6 - 0.3, -1.5, true));
-    }
-  }
-
-  function drawGradientLines() {
-    ctx.globalAlpha = 0.08;
-
-    // Subtle flowing background gradient
-    const gradient = ctx.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
-    gradient.addColorStop(0, 'rgba(77, 184, 255, 0.05)');
-    gradient.addColorStop(0.5, 'rgba(201, 168, 76, 0.02)');
-    gradient.addColorStop(1, 'rgba(77, 184, 255, 0.05)');
-
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-  }
-
-  function animate() {
-    // Fade trail effect instead of full clear
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = 'rgba(15, 31, 61, 0.15)';
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-    drawGradientLines();
-
-    spawnStream();
-
-    // Update and draw particles
-    for (let i = particles.length - 1; i >= 0; i--) {
-      if (!particles[i].update()) {
-        particles.splice(i, 1);
-      } else {
-        particles[i].draw();
-      }
-    }
-
-    // Draw connecting lines between nearby particles (subtle network effect)
-    ctx.globalAlpha = 0.05;
-    ctx.strokeStyle = '#4db8ff';
-    ctx.lineWidth = 0.5;
-
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 150 && particles[i].isGold === particles[j].isGold) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    time++;
-    ctx.globalAlpha = 1;
-    animationId = requestAnimationFrame(animate);
-  }
-
-  animate();
 </script>
 </body>
 </html>
