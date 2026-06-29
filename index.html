@@ -67,13 +67,14 @@
     }
 
     .hero-canvas {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 1;
       display: block;
+      pointer-events: none;
     }
 
     .hero-content {
@@ -1743,6 +1744,8 @@ top_genres = counts['genres'].value_counts().head(12).index</div>
   const canvas = document.getElementById('heroCanvas');
   const ctx = canvas.getContext('2d');
   let animationId;
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth * window.devicePixelRatio;
@@ -1752,6 +1755,12 @@ top_genres = counts['genres'].value_counts().head(12).index</div>
 
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
+
+  // Track mouse movement
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
   const particles = [];
   let time = 0;
@@ -1777,6 +1786,17 @@ top_genres = counts['genres'].value_counts().head(12).index</div>
 
       // Gentle sine wave drift
       this.y += Math.sin(this.x / 100 + time / 50) * 0.5;
+
+      // Subtle mouse attraction
+      const dx = mouseX - this.x;
+      const dy = mouseY - this.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 200 && distance > 0) {
+        const force = 0.02 * (1 - distance / 200);
+        this.vx += (dx / distance) * force;
+        this.vy += (dy / distance) * force;
+      }
 
       const progress = this.age / this.maxAge;
       return progress < 1;
