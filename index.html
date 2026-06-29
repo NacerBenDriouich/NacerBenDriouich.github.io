@@ -67,7 +67,19 @@
       position: relative; overflow: hidden;
     }
 
+    .data-viz-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
     .hero-content {
+      position: relative;
+      z-index: 2;
       width: 100%;
     }
 
@@ -940,6 +952,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <canvas id="dataViz" class="data-viz-canvas"></canvas>
   <div class="hero-content">
     <div class="hero-eyebrow">Data & Business Intelligence</div>
   <h1 class="hero-name"><span>Nacer Ben Driouich</span></h1>
@@ -1618,6 +1631,149 @@ top_genres = counts['genres'].value_counts().head(12).index</div>
       });
     }
   });
+
+  // ── PROFESSIONAL DATA VISUALIZATION ANIMATION ──
+  const canvas = document.getElementById('dataViz');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let time = 0;
+
+    function resizeCanvas() {
+      const hero = canvas.parentElement;
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function drawDataChart() {
+      // Clear with subtle fade
+      ctx.globalAlpha = 0.98;
+      ctx.fillStyle = 'rgba(15, 31, 61, 0.01)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const centerY = h / 2;
+      const padding = 80;
+
+      ctx.globalAlpha = 1;
+
+      // Draw animated line chart (represents data trending upward)
+      const points = 50;
+      const spacing = (w - padding * 2) / points;
+
+      // Blue line - representing data growth
+      ctx.strokeStyle = '#4db8ff';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.globalAlpha = 0.7;
+
+      ctx.beginPath();
+      for (let i = 0; i < points; i++) {
+        const x = padding + i * spacing;
+        const baseY = centerY + 40;
+        const wave = Math.sin((i / points) * Math.PI + time / 100) * 35;
+        const trend = (i / points) * -60;
+        const y = baseY + wave + trend;
+
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Gold line - representing secondary metric
+      ctx.strokeStyle = '#c9a84c';
+      ctx.globalAlpha = 0.5;
+
+      ctx.beginPath();
+      for (let i = 0; i < points; i++) {
+        const x = padding + i * spacing;
+        const baseY = centerY + 20;
+        const wave = Math.sin((i / points) * Math.PI * 2 + time / 80) * 25;
+        const trend = (i / points) * -40;
+        const y = baseY + wave + trend;
+
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Gradient fill under curves (represents data area)
+      ctx.globalAlpha = 0.06;
+      const gradient = ctx.createLinearGradient(0, centerY, 0, h);
+      gradient.addColorStop(0, '#4db8ff');
+      gradient.addColorStop(1, 'transparent');
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      for (let i = 0; i < points; i++) {
+        const x = padding + i * spacing;
+        const baseY = centerY + 40;
+        const wave = Math.sin((i / points) * Math.PI + time / 100) * 35;
+        const trend = (i / points) * -60;
+        const y = baseY + wave + trend;
+
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.lineTo(w - padding, h);
+      ctx.lineTo(padding, h);
+      ctx.fill();
+
+      // Draw subtle data points as circles
+      ctx.globalAlpha = 0.4;
+      ctx.fillStyle = '#4db8ff';
+
+      for (let i = 0; i < points; i += 5) {
+        const x = padding + i * spacing;
+        const baseY = centerY + 40;
+        const wave = Math.sin((i / points) * Math.PI + time / 100) * 35;
+        const trend = (i / points) * -60;
+        const y = baseY + wave + trend;
+
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Draw animated grid lines (subtle background)
+      ctx.strokeStyle = 'rgba(201, 168, 76, 0.08)';
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.3;
+
+      const gridSpacing = 60;
+      for (let x = padding; x < w - padding; x += gridSpacing) {
+        ctx.beginPath();
+        ctx.moveTo(x, padding);
+        ctx.lineTo(x, h - padding);
+        ctx.stroke();
+      }
+
+      for (let y = padding; y < h - padding; y += gridSpacing) {
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(w - padding, y);
+        ctx.stroke();
+      }
+
+      // Draw border frame
+      ctx.strokeStyle = 'rgba(201, 168, 76, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.5;
+      ctx.strokeRect(padding, padding, w - padding * 2, h - padding * 2);
+    }
+
+    function animate() {
+      drawDataChart();
+      time++;
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
 
 </script>
 </body>
